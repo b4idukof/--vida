@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>+Vida - Checklist Diário</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: url('az.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #1A237E;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      text-align: center;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #1A237E, 0 0 20px #3949AB;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px #1A237E;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 900px;
+      margin: 0 auto;
+      box-shadow: 0 0 30px #1A237E, 0 0 50px #3949AB inset;
+    }
+
+    .date-time {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .progress {
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0D47A1;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .alert {
+      color: #B71C1C;
+      font-weight: bold;
+      text-shadow: 0 0 3px #B71C1C;
+      margin-top: 10px;
+    }
+
+    ul { list-style: none; padding-left: 0; }
+    ul li { margin-bottom: 12px; }
+    .check-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 2px solid #3949AB;
+      background-color: rgba(255,255,255,0.9);
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #3949AB;
+    }
+
+    .check-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #3949AB, 0 0 40px #1A237E inset;
+    }
+
+    .check-btn.completed {
+      background-color: #1A237E;
+      color: #fff;
+      text-decoration: line-through;
+      box-shadow: 0 0 20px #00FFEA, 0 0 40px #0FF inset;
+    }
+
+    .icon { margin-right: 10px; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.5em; }
+      .container { padding: 20px; }
+      ul li { flex-direction: column; align-items: flex-start; }
+      .check-btn { flex-direction: row; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Checklist Diário +Vida</h1>
+    <div class="date-time" id="dateTime"></div>
+    <div class="progress" id="progress">Capacidade Mental Diária: 0%</div>
+
+    <div class="section">
+      <h2>Metas do Dia</h2>
+      <p>- 2 Refeições + 2-3 frutas antioxidantes + Café, pão e ovo</p>
+      <p>- Sono regulado 7-8h, TV desligada</p>
+      <p>- Caminhar 3km/4x semana ou 5km/2x semana</p>
+      <p>- Hidratação: 2-3 litros de água</p>
+    </div>
+
+    <div class="section">
+      <h2>Checklist (Prioridade)</h2>
+      <ul>
+        <li><div class="check-btn" data-value="40"><span class="icon">💧</span> Beber 2-3L de água</div></li>
+        <li><div class="check-btn" data-value="50"><span class="icon">✅</span> Tomar café da manhã saudável</div></li>
+        <li><div class="check-btn" data-value="50"><span class="icon">🍽️</span> Almoço equilibrado</div></li>
+        <li><div class="check-btn" data-value="50"><span class="icon">🍽️</span> Jantar equilibrado</div></li>
+        <li><div class="check-btn" data-value="30"><span class="icon">🍎</span> Comer 2-3 frutas</div></li>
+        <li><div class="check-btn" data-value="60"><span class="icon">🚶‍♂️</span> Caminhada / Exercício físico</div></li>
+        <li><div class="check-btn" data-value="40"><span class="icon">💤</span> Dormir 7-8h</div></li>
+        <li><div class="check-btn" data-value="20"><span class="icon">⚡</span> Desligar TV / Luzes escuras</div></li>
+        <li><div class="check-btn" data-value="15"><span class="icon">❌</span> Evitar doces e alimentos artificiais</div></li>
+        <li><div class="check-btn" data-value="25"><span class="icon">⚠️</span> Evitar Coca > 1 copo</div></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Alertas</h2>
+      <p class="alert">Alto nível de cortisol no trabalho aumenta risco de Alzheimer e doenças cerebrais a partir dos 57 anos</p>
+      <p class="alert">Falta de água reduz oxigenação cerebral; 2-3L/dia podem aumentar +15-25% da capacidade mental</p>
+    </div>
+  </div>
+
+  <script>
+    // Atualiza data e hora
+    function updateDateTime() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      document.getElementById('dateTime').textContent = now.toLocaleDateString('pt-BR', options) + " - " + timeString;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // Checklist com percentual
+    let totalPercent = 0;
+    const progress = document.getElementById('progress');
+    const checkButtons = document.querySelectorAll('.check-btn');
+
+    checkButtons.forEach(btn => {
+      let value = parseInt(btn.getAttribute('data-value'));
+      btn.addEventListener('click', () => {
+        if(!btn.classList.contains('completed')){
+          totalPercent += value;
+        } else {
+          totalPercent -= value;
+        }
+        btn.classList.toggle('completed');
+        progress.textContent = `Capacidade Mental Diária: ${totalPercent}%`;
+      });
+    });
+  </script>
+</body>
+</html>
