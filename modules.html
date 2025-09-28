@@ -1,140 +1,161 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>+Vida Modules</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: url('al.jpg') no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #00ffea;
-      min-height: 100vh;
-      padding: 20px;
-      text-align: center;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>+Vida Modules</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px #00ffea, 0 0 30px #0ff;
-    }
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: url('al.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #00ffea;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
 
-    .modules-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 30px;
-    }
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px #00ffea, 0 0 30px #0ff;
+}
 
-    .module {
-      background: rgba(0, 0, 0, 0.75);
-      border: 2px solid #00ffea;
-      border-radius: 20px;
-      padding: 30px;
-      flex: 1 1 300px;
-      max-width: 350px;
-      box-shadow: 0 0 30px #00ffea, 0 0 50px #0ff inset;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.modules-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 30px;
+}
 
-    .module:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 50px #00ffea, 0 0 70px #0ff inset;
-    }
+.module {
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid #00ffea;
+  border-radius: 20px;
+  padding: 30px;
+  flex: 1 1 300px;
+  max-width: 350px;
+  box-shadow: 0 0 30px #00ffea, 0 0 50px #0ff inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
 
-    .module h2 {
-      font-size: 1.8em;
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px #00ffea;
-    }
+.module:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 50px #00ffea, 0 0 70px #0ff inset;
+}
 
-    .module p {
-      font-size: 1.1em;
-      line-height: 1.5;
-      text-align: left;
-      color: #c0fff0;
-    }
+.module h2 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #00ffea;
+}
 
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin-top: 10px;
-    }
+.module p {
+  font-size: 1.1em;
+  line-height: 1.5;
+  text-align: left;
+  color: #c0fff0;
+}
 
-    ul li {
-      padding: 5px 0;
-      position: relative;
-      padding-left: 20px;
-    }
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
 
-    ul li::before {
-      content: "⚡";
-      position: absolute;
-      left: 0;
-      color: #00ffea;
-    }
+ul li {
+  padding: 5px 0;
+  position: relative;
+  padding-left: 20px;
+}
 
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .modules-container {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+ul li::before {
+  content: "⚡";
+  position: absolute;
+  left: 0;
+  color: #00ffea;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modules-container { flex-direction: column; align-items: center; }
+}
+</style>
 </head>
 <body>
-  <h1>+Vida Modules</h1>
+<h1>+Vida Modules</h1>
 
-  <div class="modules-container">
-    <!-- Module 1 -->
-    <div class="module">
-      <h2>Nutrition + Exercise</h2>
-      <p>Explore the key components of physical and mental regeneration:</p>
-      <ul>
-        <li>Cellular Regeneration</li>
-        <li>Brain Frequency Optimization</li>
-        <li>Medical Topics</li>
-        <li>Emotional Power Increase</li>
-        <li>Super Brain Tutorials</li>
-      </ul>
-    </div>
-
-    <!-- Module 2 -->
-    <div class="module">
-      <h2>Mental Training</h2>
-      <p>Focus on exercises and strategies to enhance your mind:</p>
-      <ul>
-        <li>Meditation Techniques</li>
-        <li>Memory Expansion</li>
-        <li>Focus &amp; Attention Boost</li>
-        <li>Neuroplasticity Drills</li>
-        <li>Problem Solving Skills</li>
-      </ul>
-    </div>
-
-    <!-- Module 3 -->
-    <div class="module">
-      <h2>Emotional Balance</h2>
-      <p>Strengthen your emotional intelligence and mental resilience:</p>
-      <ul>
-        <li>Stress Management</li>
-        <li>Mood Regulation</li>
-        <li>Energy Flow Control</li>
-        <li>Relationship Skills</li>
-        <li>Motivation &amp; Willpower</li>
-      </ul>
-    </div>
+<div class="modules-container">
+  <!-- Module 1: Nutrition -->
+  <div class="module" onclick="goToPage('calendar.html')">
+    <h2>Nutrition</h2>
+    <p>Focus on proper diet and nutrient intake:</p>
+    <ul>
+      <li>2 Meals per Day + 2-3 Antioxidant Fruits</li>
+      <li>Breakfast with Coffee, Bread & Eggs</li>
+      <li>Hydration: 2-3 Liters of Water</li>
+      <li>Avoid Sugars and Processed Foods</li>
+    </ul>
   </div>
 
+  <!-- Module 2: Exercise -->
+  <div class="module" onclick="goToPage('#')">
+    <h2>Exercise</h2>
+    <p>Physical activity to boost brain and body:</p>
+    <ul>
+      <li>Walking 3km / 4x per Week or 5km / 2x per Week</li>
+      <li>Stretching & Flexibility</li>
+      <li>Strength Training</li>
+      <li>Posture & Mobility Exercises</li>
+    </ul>
+  </div>
 
-</body></html>
+  <!-- Module 3: Mental Training -->
+  <div class="module" onclick="goToPage('#')">
+    <h2>Mental Training</h2>
+    <p>Focus on exercises and strategies to enhance your mind:</p>
+    <ul>
+      <li>Meditation Techniques</li>
+      <li>Memory Expansion</li>
+      <li>Focus & Attention Boost</li>
+      <li>Neuroplasticity Drills</li>
+      <li>Problem Solving Skills</li>
+    </ul>
+  </div>
+
+  <!-- Module 4: Emotional Balance -->
+  <div class="module" onclick="goToPage('#')">
+    <h2>Emotional Balance</h2>
+    <p>Strengthen your emotional intelligence and mental resilience:</p>
+    <ul>
+      <li>Stress Management</li>
+      <li>Mood Regulation</li>
+      <li>Energy Flow Control</li>
+      <li>Relationship Skills</li>
+      <li>Motivation & Willpower</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function goToPage(url){
+  if(url !== '#'){
+    window.location.href = url;
+  } else {
+    alert('Page not ready yet!');
+  }
+}
+</script>
+</body>
+</html>
