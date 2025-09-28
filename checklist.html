@@ -186,25 +186,27 @@
   </div>
 <script>
 
-(function updateDateFromGET() {
-    const params = new URLSearchParams(window.location.search);
-    const firstParam = params.keys().next().value; // pega o primeiro parâmetro da URL
-    if(!firstParam) return; // nenhum GET enviado
+// pega a data do GET
+const params = new URLSearchParams(window.location.search);
+const firstParam = params.keys().next().value; // pega o primeiro parâmetro
+let dateObj = firstParam ? new Date(firstParam) : new Date(); // se não tiver GET, usa hoje
+if(isNaN(dateObj)) dateObj = new Date();
 
-    // transforma string "2025-09-28" em objeto Date
-    const dateObj = new Date(firstParam);
-    if(isNaN(dateObj)) return; // data inválida
+// formata a data (do GET)
+const options = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+const dateFormatted = dateObj.toLocaleDateString('pt-BR', options);
 
-    // formata a data recebida
-    const options = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
-    const dateFormatted = dateObj.toLocaleDateString('pt-BR', options);
-
-    // hora atual
-    const timeString = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-
-    // atualiza a div
+// função que atualiza a hora mantendo a data do GET
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
     document.getElementById('dateTime').textContent = dateFormatted + ' - ' + timeString;
-})();
+}
+
+// inicializa
+updateTime();
+setInterval(updateTime, 60000); // atualiza a cada minuto
+
 
 </script>
 
