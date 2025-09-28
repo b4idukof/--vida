@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>+Vida - Checklist Diário</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Orbitron',sans-serif;
+    background:url('az.jpg') no-repeat center center fixed;
+    background-size:cover;
+    color:#1A237E;
+    min-height:100vh;
+    padding:20px;
+  }
+  h1{font-size:2.2em;text-align:center;margin-bottom:10px;text-shadow:0 0 10px #1A237E,0 0 20px #3949AB;}
+  h2{font-size:1.6em;margin-top:18px;margin-bottom:8px;text-shadow:0 0 5px #1A237E;}
+  .container{
+    background:rgba(255,255,255,0.95);
+    border-radius:14px;
+    padding:22px;
+    max-width:900px;
+    margin:0 auto;
+    box-shadow:0 0 30px #1A237E,0 0 50px #3949AB inset;
+  }
+  .date-time{font-weight:700;text-align:center;margin-bottom:12px;}
+  .progress{font-weight:700;text-align:center;margin-bottom:18px;color:#0D47A1;}
+  ul{list-style:none;padding-left:0;}
+  li{margin-bottom:10px;}
+  .check-btn, .multi-btn {
+    display:flex;align-items:center;justify-content:space-between;
+    width:100%;padding:12px 16px;border-radius:12px;border:2px solid #3949AB;
+    background:rgba(255,255,255,0.95);cursor:pointer;transition:all .22s ease;
+    box-shadow:0 0 10px #3949AB;
+    font-size:1.05em;
+  }
+  .check-btn:hover, .multi-btn:hover{transform:scale(1.02);box-shadow:0 0 18px #3949AB;}
+  .check-btn.completed{background:#1A237E;color:#fff;text-decoration:line-through;box-shadow:0 0 20px #00FFEA,0 0 40px #0ff inset;}
+  .icon{margin-right:10px;}
+  .level{font-weight:700;margin-left:12px;min-width:90px;text-align:right;}
+  /* default multi colors */
+  .multi-btn.neutral{background:rgba(255,255,255,0.95);}
+  .multi-btn.green{background:#C8E6C9;color:#0a3f20;}
+  .multi-btn.orange{background:#FFF9C4;color:#6b4a00;}
+  .multi-btn.red{background:#FFCDD2;color:#5a0b00;}
+  @media(max-width:768px){
+    .check-btn,.multi-btn{font-size:1em;padding:12px;}
+    h1{font-size:1.8em;}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Checklist Diário +Vida</h1>
+    <div class="date-time" id="dateTime"></div>
+    <div class="progress" id="progress">Capacidade Mental Diária + Felicidade Basal: 0%</div>
+
+    <!-- MANHÃ -->
+    <section>
+      <h2>Manhã</h2>
+      <ul>
+        <li>
+          <div class="check-btn" data-id="pao_ovo" data-value="20">
+            <span><span class="icon">🍞</span> Pão + Ovo</span>
+            <span class="level" id="label_pao_ovo">+20%</span>
+          </div>
+        </li>
+        <li>
+          <div class="check-btn" data-id="zero_salgados" data-value="20">
+            <span><span class="icon">❌</span> 0 Salgados</span>
+            <span class="level" id="label_zero_salgados">+20%</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- TARDE -->
+    <section>
+      <h2>Tarde</h2>
+      <ul>
+        <li>
+          <div class="check-btn" data-id="almoco" data-value="40">
+            <span><span class="icon">🍽️</span> Almoço equilibrado</span>
+            <span class="level" id="label_almoco">+40%</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- NOITE -->
+    <section>
+      <h2>Noite</h2>
+      <ul>
+        <li>
+          <div class="check-btn" data-id="jantar" data-value="40">
+            <span><span class="icon">🍽️</span> Jantar equilibrado</span>
+            <span class="level" id="label_jantar">+40%</span>
+          </div>
+        </li>
+        <li>
+          <div class="check-btn" data-id="suplemento" data-value="30">
+            <span><span class="icon">💊</span> Suplementação Essencial</span>
+            <span class="level" id="label_suplemento">+30%</span>
+          </div>
+        </li>
+        <li>
+          <div class="check-btn" data-id="dormir" data-value="40">
+            <span><span class="icon">💤</span> Dormir 7-8h</span>
+            <span class="level" id="label_dormir">+40%</span>
+          </div>
+        </li>
+        <li>
+          <div class="check-btn" data-id="desligar_tv" data-value="20">
+            <span><span class="icon">🌙</span> Desligar TV / Escuro Absoluto</span>
+            <span class="level" id="label_desligar_tv">+20%</span>
+          </div>
+        </li>
+        <li>
+          <div class="check-btn" data-id="evitar_doces" data-value="15">
+            <span><span class="icon">🚫</span> Evitar doces e alimentos artificiais</span>
+            <span class="level" id="label_doces">+15%</span>
+          </div>
+        </li>
+
+        <!-- COCA: multi-click - increases consumption by 200ml per click up to 2000ml -->
+        <li>
+          <div id="cocaBtn" class="multi-btn neutral" role="button" aria-pressed="false">
+            <span><span class="icon">🥤</span> Coca (evitar) </span>
+            <span class="level" id="label_coca">0 ml</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- DIÁRIO -->
+    <section>
+      <h2>Diário</h2>
+      <ul>
+        <!-- Frutas: 0→1→2→3 -->
+        <li>
+          <div id="frutasBtn" class="multi-btn neutral" role="button" aria-pressed="false">
+            <span><span class="icon">🍎</span> Comer Frutas</span>
+            <span class="level" id="label_frutas">0</span>
+          </div>
+        </li>
+
+        <li>
+          <div class="check-btn" data-id="caminhada" data-value="60">
+            <span><span class="icon">🚶‍♂️</span> Caminhada 3-5km</span>
+            <span class="level" id="label_caminhada">+60%</span>
+          </div>
+        </li>
+
+        <!-- Água: increments of 200ml per click up to 3000ml -->
+        <li>
+          <div id="aguaBtn" class="multi-btn neutral" role="button" aria-pressed="false">
+            <span><span class="icon">💧</span> Beber água</span>
+            <span class="level" id="label_agua">0 ml</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+	<div class="progress" style="
+    margin-top: 10%;
+">Resumo :
+<br><br><a style="
+    color: black;
+">Frutas inoxidantes &gt; Morango,Maçã,Uva,laranja</a><br><br>
+<a style="
+    color: black;
+">Almoco/Jantar equilibrado = Arroz + feijao + carne</a><br><br>
+<a style="
+    color: black;
+">Caminhada Sem Estress -&gt; Trabalho nao conta</a><br><br>
+<a style="
+    color: black;
+">alimentos artificias = todos industrializados</a><br><br>
+
+</div>
+  </div>
+
+<script>
+/* ---------- UTIL: data/time ---------- */
+function updateDateTime(){
+  const now = new Date();
+  const options = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  const timeString = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('dateTime').textContent = now.toLocaleDateString('pt-BR', options) + ' - ' + timeString;
+}
+updateDateTime();
+setInterval(updateDateTime, 60000);
+
+/* ---------- STATE ---------- */
+/*
+ contributions: map of id -> percent contribution (positive for benefits, negative for penalties)
+ totalPercent = sum of contributions
+*/
+const contributions = {
+  pao_ovo:0, zero_salgados:0, almoco:0, jantar:0, suplemento:0, dormir:0, desligar_tv:0,
+  evitar_doces:0, frutas:0, agua:0, coca:0, caminhada:0
+};
+
+const progressEl = document.getElementById('progress');
+function updateProgressUI(){
+  let total = 0;
+  Object.values(contributions).forEach(v=> total += v);
+  // round nicely
+  const display = Math.round(total);
+  progressEl.textContent = `Capacidade Mental + Felicidade Basal Diario: ${display}%`;
+}
+
+/* ---------- SIMPLE TOGGLES (check-btn) ---------- */
+document.querySelectorAll('.check-btn').forEach(btn=>{
+  const id = btn.getAttribute('data-id');
+  const value = Number(btn.getAttribute('data-value')) || 0;
+  const label = btn.querySelector('.level');
+
+  // initialize label if present
+  if(label && label.id){
+    // keep existing text (already provided in HTML)
+  }
+
+  btn.addEventListener('click', ()=>{
+    const active = btn.classList.toggle('completed');
+    contributions[id] = active ? value : 0;
+    updateProgressUI();
+  });
+});
+
+/* ---------- MULTI BUTTON: FRUTAS ---------- */
+/* Frutas levels:
+   count: 0 -> 0% (0 frutas)
+          1 -> 10% (1 fruta)  (color: red)
+          2 -> 20% (2 frutas) (color: orange)
+          3 -> 30% (3 frutas) (color: green)
+   cycles 0->1->2->3->0
+*/
+(function(){
+  const btn = document.getElementById('frutasBtn');
+  const label = document.getElementById('label_frutas');
+  const levels = [0,10,20,30];
+  let index = 0; // 0..3
+
+  function applyState(){
+    // update contributions
+    contributions.frutas = levels[index];
+    // update label text
+    if(index === 0) label.textContent = '0 frutas';
+    else if(index === 1) label.textContent = '1 fruta';
+    else label.textContent = `${index} frutas`;
+    // update color
+    btn.classList.remove('green','orange','red','neutral');
+    if(index === 0) btn.classList.add('neutral');
+    else if(index === 1) btn.classList.add('red');
+    else if(index === 2) btn.classList.add('orange');
+    else btn.classList.add('green');
+    // update UI total
+    updateProgressUI();
+  }
+
+  btn.addEventListener('click', ()=>{
+    index = (index + 1) % levels.length;
+    applyState();
+  });
+
+  // initial
+  applyState();
+})();
+
+/* ---------- MULTI BUTTON: AGUA ---------- */
+/* Water increments by 200ml per click, cycles back to 0 after max.
+   We'll allow up to 3000ml (0..3000 step 200). Percent effect: +5% per 200ml.
+   Colors:
+     <1000ml -> red (insufficient)
+     1000..2000 -> orange (ok)
+     >2000 -> green (good)
+*/
+(function(){
+  const btn = document.getElementById('aguaBtn');
+  const label = document.getElementById('label_agua');
+  const step = 200;
+  const max = 3000;
+  const percentPerStep = 5; // % per 200ml
+  let ml = 0;
+
+  function applyState(){
+    // compute percent
+    const steps = Math.round(ml/step);
+    contributions.agua = steps * percentPerStep;
+    label.textContent = `${ml} ml`;
+    // color
+    btn.classList.remove('green','orange','red','neutral');
+    if(ml === 0) btn.classList.add('neutral');
+    else if(ml <= 1000) btn.classList.add('red');
+    else if(ml <= 2000) btn.classList.add('orange');
+    else btn.classList.add('green');
+    updateProgressUI();
+  }
+
+  btn.addEventListener('click', ()=>{
+    ml += step;
+    if(ml > max) ml = 0; // cycle back
+    applyState();
+  });
+
+  applyState();
+})();
+
+/* ---------- MULTI BUTTON: COCA ---------- */
+/* Coca increments by 200ml per click up to 2000ml. Penalty per 200ml = 5% (negative).
+   Color scheme (severity):
+     0 -> neutral
+     1-2 cups (200-400ml) -> green
+     3-5 cups (600-1000ml) -> orange
+     6-10 cups (1200-2000ml) -> red
+*/
+(function(){
+  const btn = document.getElementById('cocaBtn');
+  const label = document.getElementById('label_coca');
+  const step = 200;
+  const max = 2000;
+  const penaltyPerStep = 5; // % penalty per 200ml
+  let ml = 0;
+
+  function applyState(){
+    // contributions.coca should be negative penalty
+    const steps = Math.round(ml/step);
+    contributions.coca = - (steps * penaltyPerStep);
+    label.textContent = `${ml} ml`;
+    btn.classList.remove('green','orange','red','neutral');
+    if(ml === 0) btn.classList.add('neutral');
+    else if(ml <= 400) btn.classList.add('green');
+    else if(ml <= 1000) btn.classList.add('orange');
+    else btn.classList.add('red');
+    updateProgressUI();
+  }
+
+  btn.addEventListener('click', ()=>{
+    ml += step;
+    if(ml > max) ml = 0; // cycle back to 0
+    applyState();
+  });
+
+  applyState();
+})();
+
+/* ---------- INITIAL: ensure other contributions exist (caminhada) ---------- */
+contributions.caminhada = 0; // will be set by toggle when clicked (check-btn already wired)
+updateProgressUI();
+
+</script>
+</body>
+</html>
