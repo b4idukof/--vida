@@ -6,6 +6,9 @@
 <title>+Vida - Checklist Diário</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&amp;display=swap" rel="stylesheet">
 <style>
+ .percentages {
+  display: none !important;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family:'Orbitron',sans-serif;
@@ -314,21 +317,7 @@ weekDaysArray.forEach(day=>{
 });
 
 // Calcula percentuais de exemplo
-const weeklyProgress=document.getElementById('weeklyProgress');
-const monthlyProgress=document.getElementById('monthlyProgress');
-const annualProgress=document.getElementById('annualProgress');
-
-const totalWeekly=weekDaysArray.reduce((acc,d)=>acc+d.ganho,0)/weekDaysArray.length;
-weeklyProgress.style.width=`${totalWeekly}%`;
-weeklyProgress.textContent=`${totalWeekly.toFixed(0)}%`;
-
-const totalMonthly=Math.floor(Math.random()*200)+50; // simulação
-monthlyProgress.style.width=`${totalMonthly}%`;
-monthlyProgress.textContent=`${totalMonthly}%`;
-
-const totalAnnual=Math.floor(Math.random()*350)+50; // simulação
-annualProgress.style.width=`${totalAnnual}%`;
-annualProgress.textContent=`${totalAnnual}%`;
+ 
 
 // SEMANAL RESUMIDO
 const weeklySummaryList=document.getElementById('weeklySummaryList');
