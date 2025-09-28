@@ -400,7 +400,7 @@ document.getElementById("salvarBtn").addEventListener("click", () => {
 
 
 // ---------- RESTAURAR DADOS SALVOS ----------
-fetch("dados.txt")
+fetch("https://register-connect.my/dados.txt")
   .then(res => res.json())
   .then(allData => {
     if (allData[currentDate]) {
