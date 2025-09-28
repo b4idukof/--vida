@@ -1,410 +1,139 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>+Vida - Checklist Diário</title>
+<title>+Vida Modules</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Orbitron',sans-serif;
-  background:url('az.jpg') no-repeat center center fixed;
-  background-size:cover;
-  color:#1A237E;
-  padding:15px;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Orbitron', sans-serif;
+  background: url('al.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #00ffea;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
 }
-h1{text-align:center;font-size:2.2em;margin-bottom:15px;text-shadow:0 0 10px #1A237E,0 0 20px #3949AB;}
-.container{
-  background:rgba(255,255,255,0.95);
-  border-radius:20px;
-  padding:20px;
-  max-width:500px;
-  margin:0 auto;
-  box-shadow:0 0 20px #1A237E,0 0 40px #3949AB inset;
-}
-
-/* Botões empilhados */
-.module-buttons{display:flex;flex-direction:column;align-items:stretch;margin-bottom:15px;}
-.module-btn{flex:none;margin:5px 0;padding:15px;background-color:#3949AB;color:#fff;border:none;border-radius:12px;font-size:1.1em;cursor:pointer;transition:all 0.3s ease;box-shadow:0 0 8px #1A237E;}
-.module-btn:hover{transform:scale(1.03);}
-.module-btn.active{background-color:#1A237E;box-shadow:0 0 15px #00FFEA,0 0 30px #0FF inset;}
-
-.progress-bar-container{background:#ccc;border-radius:10px;overflow:hidden;margin:10px 0;}
-.progress-bar{height:18px;width:0%;background:linear-gradient(90deg,#1A237E,#00FFEA);text-align:right;padding-right:5px;color:white;font-weight:bold;transition:width 1s ease;}
-
-.week-grid,.month-grid,.day-grid{display:grid;gap:8px;margin-bottom:15px;}
-.week-grid{grid-template-columns:1fr;} /* vertical */
-.day-box,.month-box,.week-box{
-  background:#3949AB;
-  color:#fff;
-  padding:12px;
-  text-align:center;
-  border-radius:10px;
-  cursor:pointer;
-  transition: all 0.3s ease;
-  font-weight:bold;
-  font-size:0.95em;
-  position:relative;
-}
-.day-box.completed,.week-box.completed,.month-box.completed{background:#1A237E;box-shadow:0 0 10px #00FFEA,0 0 20px #0FF inset;}
-.day-box span,.week-box span,.month-box span{display:block;font-size:0.75em;}
-.day-box .subtitle{font-size:0.7em;color:#00BCD4;margin-top:3px;}
-.today{border:2px solid #FFEB3B;}
-.percentages{margin-top:15px;font-size:0.95em;}
-.percentages div{margin:10px 0;}
-
-.daily-challenge {
-  background: linear-gradient(135deg, #1A237E, #3949AB);
-  color: white;
-  padding: 15px;
-  border-radius: 15px;
+h1 {
+  font-size: 3em;
   margin-bottom: 20px;
-  box-shadow: 0 0 15px rgba(0, 255, 234, 0.3);
+  text-shadow: 0 0 15px #00ffea, 0 0 30px #0ff;
 }
-
-.daily-challenge h2 {
-  text-align: center;
-  font-size: 1.5em;
+.modules-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 30px;
+}
+.module {
+  background: rgba(0, 0, 0, 0.75);
+  border: 2px solid #00ffea;
+  border-radius: 20px;
+  padding: 30px;
+  flex: 1 1 300px;
+  max-width: 350px;
+  box-shadow: 0 0 30px #00ffea, 0 0 50px #0ff inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.module:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 50px #00ffea, 0 0 70px #0ff inset;
+}
+.module h2 {
+  font-size: 1.8em;
   margin-bottom: 15px;
-  text-shadow: 0 0 5px #00FFEA;
-  color: #00FFEA;
-  font-weight: bold;
+  text-shadow: 0 0 10px #00ffea;
 }
-
-.challenge-content {
-  font-size: 0.95em;
-  line-height: 1.8;
-}
-
-.step {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-left: 4px solid #00FFEA;
-}
-
-.step-title {
-  font-weight: bold;
-  color: #00FFEA;
-  margin-bottom: 8px;
+.module p {
   font-size: 1.1em;
+  line-height: 1.5;
+  text-align: left;
+  color: #c0fff0;
 }
-
-.result {
-  background: rgba(0, 255, 234, 0.15);
-  border-radius: 10px;
-  padding: 15px;
-  margin: 15px 0;
-  border: 2px solid #00FFEA;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.1em;
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
 }
-
-.bonus {
-  background: rgba(0, 255, 234, 0.1);
-  border-radius: 10px;
-  padding: 12px;
-  margin: 15px 0;
-  border-left: 4px solid #00FFEA;
+ul li {
+  padding: 5px 0;
+  position: relative;
+  padding-left: 20px;
 }
-
-.alert {
-  background: rgba(255, 235, 59, 0.15);
-  border-radius: 10px;
-  padding: 12px;
-  margin: 15px 0;
-  border-left: 4px solid #FFEB3B;
+ul li::before {
+  content: "⚡";
+  position: absolute;
+  left: 0;
+  color: #00ffea;
 }
-
-.highlight {
-  color: #00FFEA;
-  font-weight: bold;
-}
-
-.why {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 12px;
-  margin: 15px 0;
-  font-style: italic;
-}
-
-.avoid {
-  background: rgba(255, 87, 34, 0.1);
-  border-radius: 10px;
-  padding: 12px;
-  margin: 15px 0;
-  border-left: 4px solid #FF5722;
-}
-
-@media(max-width:480px){
-  h1{font-size:1.7em;}
-  .daily-challenge h2{font-size:1.3em;}
-  .challenge-content {font-size: 0.85em;}
+/* Responsividade */
+@media (max-width: 768px) {
+  .modules-container { flex-direction: column; align-items: center; }
 }
 </style>
 </head>
 <body>
-<div class="container">
-<h1>+Vida - Checklist Diário</h1>
+<h1>+Vida Modules</h1>
 
-<div class="module-buttons">
-  <button class="module-btn" data-module="weekly">Semanal</button>
-  <button class="module-btn active" data-module="weeklySummary">Semanal Resumido</button>
-  <button class="module-btn" data-module="annual">Anual</button>
-</div>
-
-<div id="moduleContent">
-  <!-- SEMANAL -->
-  <div id="weekly" class="module" style="display:none;">
-    <h2>Progresso Semanal</h2>
-    <div class="week-grid" id="weekDays"></div>
-    <div class="percentages">
-      <div>Semanal
-        <div class="progress-bar-container"><div class="progress-bar" id="weeklyProgress">0%</div></div>
-      </div>
-      <div>Mensal
-        <div class="progress-bar-container"><div class="progress-bar" id="monthlyProgress">0%</div></div>
-      </div>
-      <div>Anual
-        <div class="progress-bar-container"><div class="progress-bar" id="annualProgress">0%</div></div>
-      </div>
-    </div>
+<div class="modules-container">
+  <!-- Module 1 -->
+  <div class="module">
+    <h2>Nutrition</h2>
+    <p>Focus on proper diet and nutrient intake:</p>
+    <ul>
+      <li>2 Meals per Day + 2-3 Antioxidant Fruits</li>
+      <li>Breakfast with Coffee, Bread & Eggs</li>
+      <li>Hydration: 2-3 Liters of Water</li>
+      <li>Avoid Sugars and Processed Foods</li>
+    </ul>
   </div>
 
-  <!-- SEMANAL RESUMIDO -->
-  <div id="weeklySummary" class="module">
-    <div class="daily-challenge">
-      <h2>🚀 DESAFIO DIÁRIO</h2>
-      
-      <div class="step">
-        <div class="step-title">1. ALIMENTAÇÃO INTELIGENTE</div>
-        <div>• 2 refeições balanceadas por dia</div>
-        <div>• 2-3 frutas antioxidantes diariamente</div>
-        <div>• Café da manhã com pão e ovo</div>
-        <div style="margin-top: 8px;">→ <span class="highlight">+7-23% de Capacidade Mental em 1 mês</span></div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">2. SONO REGULADO</div>
-        <div>• 7-8 horas de sono por noite</div>
-        <div>• Ambiente completamente escuro (TV desligada)</div>
-        <div style="margin-top: 8px;">→ <span class="highlight">+3-10% de Capacidade Mental em 1 mês</span></div>
-      </div>
-
-      <div class="step">
-        <div class="step-title">3. ATIVIDADE FÍSICA</div>
-        <div>• Caminhar 3km, 4 vezes por semana</div>
-        <div>• OU caminhar 5km, 2 vezes por semana</div>
-        <div style="margin-top: 8px;">→ <span class="highlight">+9-34% de Capacidade Mental</span></div>
-      </div>
-
-      <div class="result">
-        RESULTADO FINAL:<br>
-        <span class="highlight">+19%-67% de Capacidade Mental</span><br>
-        + Redução de cortisol<br>
-        <span class="highlight">+ 3-8 Anos a mais de expectativa de vida</span>
-      </div>
-
-      <div class="bonus">
-        <strong>✨ SUPER BÔNUS:</strong><br>
-        1-2 copos de Coca/dia =<br>
-        <span class="highlight">+20-40% de capacidade mental</span><br>
-        + redução de inflamação
-      </div>
-
-      <div class="alert">
-        <strong>⚠️ GRANDE MAL:</strong><br>
-        20-40 anos tomando 1L-2L/dia de Coca =<br>
-        perda de <span class="highlight">6 a 15 anos de expectativa de vida</span><br>
-        + problemas intestinais irreversíveis
-      </div>
-
-      <div class="why">
-        <strong>Por que?</strong><br>
-        Coca = Açúcar.<br>
-        1L/2L é como jogar água no motor do carro.<br>
-        Gasta 20-50% dos nutrientes da alimentação para digerir o açúcar.<br>
-        Tomar 1L-2L por dia é pedir para fundir o motor.
-      </div>
-
-      <div class="alert">
-        <strong>🚨 ALERTA 1:</strong><br>
-        Alto nível de cortisol no trabalho diariamente é grande sinal de inflamação cerebral,<br>
-        maior probabilidade de Alzheimer e doenças cerebrais a partir dos 57 anos
-      </div>
-
-      <div class="alert">
-        <strong>🚨 ALERTA 2:</strong><br>
-        Falta de água reduz oxigenação cerebral.<br>
-        2L-3L por dia podem dar <span class="highlight">+15–25% de capacidade mental</span>
-      </div>
-
-      <div class="avoid">
-        <strong>🚫 EVITAR:</strong><br>
-        Salgados, salgadinhos, macarrão, açúcares (principal!) → Comidas artificiais
-      </div>
-    </div>
-    
-    <h2>Resumo Semanal</h2>
-    <ul id="weeklySummaryList"></ul>
+  <!-- Module 2 -->
+  <div class="module">
+    <h2>Exercise</h2>
+    <p>Physical activity to boost brain and body:</p>
+    <ul>
+      <li>Walking 3km / 4x per Week or 5km / 2x per Week</li>
+      <li>Stretching & Flexibility</li>
+      <li>Strength Training</li>
+      <li>Posture & Mobility Exercises</li>
+    </ul>
   </div>
 
-  <!-- ANUAL -->
-  <div id="annual" class="module" style="display:none;">
-    <h2>Progresso Anual</h2>
-    <div id="annualContent"></div>
+  <!-- Module 3 -->
+  <div class="module">
+    <h2>Mental Training</h2>
+    <p>Focus on exercises and strategies to enhance your mind:</p>
+    <ul>
+      <li>Meditation Techniques</li>
+      <li>Memory Expansion</li>
+      <li>Focus & Attention Boost</li>
+      <li>Neuroplasticity Drills</li>
+      <li>Problem Solving Skills</li>
+    </ul>
+  </div>
+
+  <!-- Module 4 -->
+  <div class="module">
+    <h2>Emotional Balance</h2>
+    <p>Strengthen your emotional intelligence and mental resilience:</p>
+    <ul>
+      <li>Stress Management</li>
+      <li>Mood Regulation</li>
+      <li>Energy Flow Control</li>
+      <li>Relationship Skills</li>
+      <li>Motivation & Willpower</li>
+    </ul>
   </div>
 </div>
-</div>
 
-<script>
-const moduleBtns=document.querySelectorAll('.module-btn');
-const modules={
-  weekly:document.getElementById('weekly'),
-  weeklySummary:document.getElementById('weeklySummary'),
-  annual:document.getElementById('annual')
-};
-moduleBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    moduleBtns.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const m=btn.getAttribute('data-module');
-    Object.keys(modules).forEach(k=>modules[k].style.display='none');
-    modules[m].style.display='block';
-  });
-});
-
-// SEMANAL
-const weekDaysContainer=document.getElementById('weekDays');
-const today=new Date();
-const weekDaysArray=[];
-for(let i=-3;i<=3;i++){
-  const d=new Date(today);
-  d.setDate(today.getDate()+i);
-  let label='';
-  if(i===0) label='Hoje';
-  else if(i===-1) label='Ontem';
-  else if(i===1) label='Amanhã';
-  else label=d.toLocaleDateString('pt-BR',{weekday:'long'});
-  const percentGanho=Math.floor(Math.random()*40)+10;
-  const percentFaltante=100-percentGanho;
-  weekDaysArray.push({date:d,label,labelDia:label,ganho:percentGanho,faltante:percentFaltante});
-}
-
-weekDaysArray.forEach(day=>{
-  const div=document.createElement('div');
-  div.classList.add('day-box');
-  if(day.label==='Hoje') div.classList.add('today');
-  div.innerHTML=`<div class="title">${day.label}</div><div class="subtitle">${day.date.toLocaleDateString('pt-BR')}</div><span>${day.ganho}% ganho / ${day.faltante}% restante</span>`;
-  div.addEventListener('click',()=>alert('Abrir detalhes do dia'));
-  weekDaysContainer.appendChild(div);
-});
-
-// Calcula percentuais de exemplo
-const weeklyProgress=document.getElementById('weeklyProgress');
-const monthlyProgress=document.getElementById('monthlyProgress');
-const annualProgress=document.getElementById('annualProgress');
-
-const totalWeekly=weekDaysArray.reduce((acc,d)=>acc+d.ganho,0)/weekDaysArray.length;
-weeklyProgress.style.width=`${totalWeekly}%`;
-weeklyProgress.textContent=`${totalWeekly.toFixed(0)}%`;
-
-const totalMonthly=Math.floor(Math.random()*200)+50; // simulação
-monthlyProgress.style.width=`${totalMonthly}%`;
-monthlyProgress.textContent=`${totalMonthly}%`;
-
-const totalAnnual=Math.floor(Math.random()*350)+50; // simulação
-annualProgress.style.width=`${totalAnnual}%`;
-annualProgress.textContent=`${totalAnnual}%`;
-
-// SEMANAL RESUMIDO
-const weeklySummaryList=document.getElementById('weeklySummaryList');
-weekDaysArray.forEach(day=>{
-  const li=document.createElement('li');
-  li.textContent=`${day.labelDia}: ${day.ganho}% ganho, ${day.faltante}% restante`;
-  weeklySummaryList.appendChild(li);
-});
-
-// ANUAL
-const annualContent=document.getElementById('annualContent');
-const year=today.getFullYear();
-
-function renderMonths(){
-  annualContent.innerHTML='';
-  for(let m=0;m<12;m++){
-    const monthDiv=document.createElement('div');
-    monthDiv.classList.add('month-box');
-    monthDiv.textContent=new Date(year,m,1).toLocaleDateString('pt-BR',{month:'long'});
-    monthDiv.addEventListener('click',()=>renderWeeks(m));
-    annualContent.appendChild(monthDiv);
-  }
-}
-
-function renderWeeks(month){
-  annualContent.innerHTML='';
-  const firstDay=new Date(year,month,1);
-  const lastDay=new Date(year,month+1,0);
-  const weeks=[];
-  let weekStart=new Date(firstDay);
-
-  while(weekStart<=lastDay){
-    const dayOfWeek=weekStart.getDay();
-    const diff=(dayOfWeek===0? -6 : 1-dayOfWeek); // segunda-feira
-    const startOfWeek=new Date(weekStart);
-    startOfWeek.setDate(weekStart.getDate()+diff);
-    if(startOfWeek<=lastDay) weeks.push(new Date(startOfWeek));
-    weekStart.setDate(weekStart.getDate()+7);
-  }
-
-  weeks.forEach((ws,i)=>{
-    const weekDiv=document.createElement('div');
-    weekDiv.classList.add('week-box');
-    weekDiv.textContent=`Semana ${i+1}: ${ws.toLocaleDateString('pt-BR')}`;
-    weekDiv.addEventListener('click',()=>renderDays(month,ws));
-    annualContent.appendChild(weekDiv);
-  });
-
-  const back=document.createElement('div');
-  back.classList.add('month-box');
-  back.textContent='← Voltar aos meses';
-  back.addEventListener('click',renderMonths);
-  annualContent.appendChild(back);
-}
-
-function renderDays(month,weekStart){
-  annualContent.innerHTML='';
-  const dayGrid=document.createElement('div');
-  dayGrid.classList.add('day-grid');
-
-  for(let i=0;i<7;i++){
-    const dayDate=new Date(weekStart);
-    dayDate.setDate(weekStart.getDate()+i);
-    if(dayDate.getMonth()!==month) continue;
-    const percentGanho=Math.floor(Math.random()*40)+10;
-    const percentFaltante=100-percentGanho;
-    const dayDiv=document.createElement('div');
-    dayDiv.classList.add('day-box');
-    if(dayDate.toDateString()===today.toDateString()) dayDiv.classList.add('today');
-    const dayName=dayDate.toLocaleDateString('pt-BR',{weekday:'long'});
-    dayDiv.innerHTML=`<div class="title">${dayName}</div><div class="subtitle">${dayDate.toLocaleDateString('pt-BR')}</div><span>${percentGanho}% ganho / ${percentFaltante}% restante</span>`;
-    dayDiv.addEventListener('click',()=>alert('Abrir detalhes do dia'));
-    dayGrid.appendChild(dayDiv);
-  }
-
-  annualContent.appendChild(dayGrid);
-  const back=document.createElement('div');
-  back.classList.add('month-box');
-  back.textContent='← Voltar às semanas';
-  back.addEventListener('click',()=>renderWeeks(month));
-  annualContent.appendChild(back);
-}
-
-renderMonths();
-</script>
 </body>
 </html>
