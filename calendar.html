@@ -305,7 +305,11 @@ weekDaysArray.forEach(day=>{
   div.classList.add('day-box');
   if(day.label==='Hoje') div.classList.add('today');
   div.innerHTML=`<div class="title">${day.label}</div><div class="subtitle">${day.date.toLocaleDateString('pt-BR')}</div><span>${day.ganho}% ganho / ${day.faltante}% restante</span>`;
-  div.addEventListener('click',()=>alert('Abrir detalhes do dia'));
+  div.addEventListener('click',()=>{
+  const dataStr = day.date.toISOString().split('T')[0]; 
+  window.location.href = `checklist.html?${dataStr}`;
+});
+
   weekDaysContainer.appendChild(div);
 });
 
@@ -396,7 +400,11 @@ function renderDays(month,weekStart){
     if(dayDate.toDateString()===today.toDateString()) dayDiv.classList.add('today');
     const dayName=dayDate.toLocaleDateString('pt-BR',{weekday:'long'});
     dayDiv.innerHTML=`<div class="title">${dayName}</div><div class="subtitle">${dayDate.toLocaleDateString('pt-BR')}</div><span>${percentGanho}% ganho / ${percentFaltante}% restante</span>`;
-    dayDiv.addEventListener('click',()=>alert('Abrir detalhes do dia'));
+    dayDiv.addEventListener('click',()=>{
+  const dataStr = dayDate.toISOString().split('T')[0];
+  window.location.href = `checklist.html?${dataStr}`;
+});
+
     dayGrid.appendChild(dayDiv);
   }
 
