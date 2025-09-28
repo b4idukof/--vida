@@ -162,6 +162,10 @@
         </li>
       </ul>
     </section>
+	  <button id="salvarBtn" style="margin-top:20px;padding:12px;font-size:1.2em;background:#1A237E;color:white;border:none;border-radius:8px;cursor:pointer">
+  Salvar
+</button>
+
 	<div class="progress" style="
     margin-top: 10%;
 ">Resumo :
@@ -350,6 +354,121 @@ document.querySelectorAll('.check-btn').forEach(btn=>{
 contributions.caminhada = 0; // will be set by toggle when clicked (check-btn already wired)
 updateProgressUI();
 
+
+
+
+	// ---------- SALVAR DADOS ----------
+// pega a data da URL (?2025-09-27)
+const urlParams = new URLSearchParams(window.location.search);
+const currentDate = urlParams.toString() ? urlParams.toString() : new Date().toISOString().split("T")[0];
+
+// botão salvar
+document.getElementById("salvarBtn").addEventListener("click", () => {
+  const payload = {
+    date: currentDate,
+    values: contributions
+  };
+
+  fetch("https://mersinescbayan.com/salvar.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.text())
+  .then(txt => alert(txt))
+  .catch(err => console.error("Erro ao salvar:", err));
+});
+
+
+// ---------- RESTAURAR DADOS SALVOS ----------
+fetch("dados.txt")
+  .then(res => res.json())
+  .then(allData => {
+    if (allData[currentDate]) {
+      const saved = allData[currentDate];
+      Object.keys(saved).forEach(key => {
+        contributions[key] = saved[key];
+      });
+      restoreUI();
+    }
+  })
+  .catch(err => console.log("Sem dados salvos ainda", err));
+
+// função que aplica os estados dos botões
+function restoreUI() {
+  // check-btn simples
+  document.querySelectorAll('.check-btn').forEach(btn => {
+    const id = btn.getAttribute('data-id');
+    const value = Number(btn.getAttribute('data-value')) || 0;
+    if (contributions[id] === value) {
+      btn.classList.add('completed');
+    } else {
+      btn.classList.remove('completed');
+    }
+  });
+
+  // FRUTAS
+  (function(){
+    const btn = document.getElementById('frutasBtn');
+    const label = document.getElementById('label_frutas');
+    const levels = [0,10,20,30];
+    let index = levels.indexOf(contributions.frutas);
+    if(index === -1) index = 0;
+
+    function applyState(){
+      if(index === 0) label.textContent = '0 frutas';
+      else if(index === 1) label.textContent = '1 fruta';
+      else label.textContent = `${index} frutas`;
+
+      btn.classList.remove('green','orange','red','neutral');
+      if(index === 0) btn.classList.add('neutral');
+      else if(index === 1) btn.classList.add('red');
+      else if(index === 2) btn.classList.add('orange');
+      else btn.classList.add('green');
+    }
+
+    applyState();
+  })();
+
+  // AGUA
+  (function(){
+    const btn = document.getElementById('aguaBtn');
+    const label = document.getElementById('label_agua');
+    const step = 200;
+    let ml = contributions.agua / 5 * step; // percentPerStep = 5%
+    function applyState(){
+      label.textContent = `${ml} ml`;
+      btn.classList.remove('green','orange','red','neutral');
+      if(ml === 0) btn.classList.add('neutral');
+      else if(ml <= 1000) btn.classList.add('red');
+      else if(ml <= 2000) btn.classList.add('orange');
+      else btn.classList.add('green');
+    }
+    applyState();
+  })();
+
+  // COCA
+  (function(){
+    const btn = document.getElementById('cocaBtn');
+    const label = document.getElementById('label_coca');
+    const step = 200;
+    let ml = -contributions.coca / 5 * step; // negativo, pois é penalidade
+    function applyState(){
+      label.textContent = `${ml} ml`;
+      btn.classList.remove('green','orange','red','neutral');
+      if(ml === 0) btn.classList.add('neutral');
+      else if(ml <= 400) btn.classList.add('green');
+      else if(ml <= 1000) btn.classList.add('orange');
+      else btn.classList.add('red');
+    }
+    applyState();
+  })();
+
+  updateProgressUI();
+}
+
+
+	
 </script>
 </body>
 </html>
