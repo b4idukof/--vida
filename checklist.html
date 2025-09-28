@@ -7,29 +7,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
 	<style>
-  #salvarBtn {
-	  align:center;
-    margin-top: 20px;
-    padding: 14px 28px;
-    font-size: 1.2em;
-    background: linear-gradient(135deg,#3949AB,#1A237E);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-    font-weight: 700;
-  }
-  #salvarBtn:hover {
-    background: linear-gradient(135deg,#1A237E,#3949AB);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-    transform: translateY(-2px);
-  }
-  #salvarBtn:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  }
+ <style>
+.btn-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#salvarBtn {
+  padding: 18px 50px;
+  font-size: 1.5em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #3949AB, #1A237E);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+#salvarBtn:hover {
+  background: linear-gradient(135deg, #1A237E, #3949AB);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 12px rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+
+#salvarBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 0 10px rgba(255,255,255,0.2);
+}
+</style>
+
 </style>
 
 	<style>
@@ -190,9 +199,10 @@
         </li>
       </ul>
     </section>
-	  <button id="salvarBtn" style="margin-top:20px;padding:12px;font-size:1.2em;background:#1A237E;color:white;border:none;border-radius:8px;cursor:pointer">
-  Concluir
-</button>
+	<div class="btn-container">
+  <button id="salvarBtn">Concluir</button>
+</div>
+
 
 	<div class="progress" style="
     margin-top: 10%;
