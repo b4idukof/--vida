@@ -435,7 +435,22 @@ document.getElementById("salvarBtn").addEventListener("click", () => {
     body: JSON.stringify(payload)
   })
   .then(res => res.text())
-  .then(txt => alert(txt))
+ .then(txt => {
+    // mostra o modal
+    const modal = document.getElementById("saveModal");
+    modal.style.display = "block";
+
+    // fecha modal ao clicar no X
+    document.getElementById("closeModal").onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // fecha modal ao clicar fora do conteúdo
+    window.onclick = function(event) {
+        if(event.target == modal) modal.style.display = "none";
+    }
+})
+
   .catch(err => console.error("Erro ao salvar:", err));
 });
 
@@ -530,5 +545,70 @@ function restoreUI() {
 
 	
 </script>
+
+	<!-- MODAL POPUP -->
+<div id="saveModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal">&times;</span>
+    <h2>✅ Sucesso!</h2>
+    <p>Seus dados foram salvos com sucesso.</p>
+  </div>
+</div>
+
+<style>
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.6); 
+}
+
+.modal-content {
+  background: #fff;
+  margin: 15% auto; 
+  padding: 30px 40px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.modal-content h2 {
+  color: #1A237E;
+  margin-bottom: 12px;
+  font-size: 1.8em;
+}
+
+.modal-content p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+#closeModal {
+  color: #888;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -10px;
+}
+
+#closeModal:hover {
+  color: #1A237E;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+</style>
+
 </body>
 </html>
