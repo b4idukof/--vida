@@ -189,7 +189,21 @@
 // pega a data do GET
 const params = new URLSearchParams(window.location.search);
 const firstParam = params.keys().next().value; // pega o primeiro parâmetro
-let dateObj = firstParam ? new Date(firstParam) : new Date(); // se não tiver GET, usa hoje
+
+
+	
+let dateObj;
+if (firstParam) {
+    const parts = firstParam.split('-'); // "2025-09-28" -> ["2025","09","28"]
+    // ano, mês (0-index), dia
+    dateObj = new Date(parts[0], parts[1]-1, parts[2]);
+} else {
+    dateObj = new Date();
+}
+
+
+
+	
 if(isNaN(dateObj)) dateObj = new Date();
 
 // formata a data (do GET)
