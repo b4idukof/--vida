@@ -184,7 +184,32 @@
 
 </div>
   </div>
+<script>
+// Função para pegar o GET da URL
+function getDateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    // Supondo que a URL seja checklist.html?2025-09-28
+    // Pegamos o primeiro parâmetro
+    const firstParam = params.keys().next().value; 
+    return firstParam; // retorna "2025-09-28"
+}
 
+// Atualiza a div com a data recebida via GET
+(function updateDateFromGET() {
+    const dateStr = getDateFromURL();
+    if(!dateStr) return; // nenhum GET enviado
+    const dateObj = new Date(dateStr);
+    if(isNaN(dateObj)) return; // data inválida
+
+    const options = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+    const timeString = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+    document.getElementById('dateTime').textContent = 
+        dateObj.toLocaleDateString('pt-BR', options) + ' - ' + timeString;
+})();
+</script>
+
+	
 <script>
 /* ---------- UTIL: data/time ---------- */
 function updateDateTime(){
